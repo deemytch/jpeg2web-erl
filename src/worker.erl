@@ -15,7 +15,7 @@ handle_info(start, ProducerPid) ->
 handle_info({next, Fname}, ProducerPid) ->
 	case run_process(Fname) of
 		ok -> ok;
-		_  -> io:format("Ошибка при обработке файла ~ts~n", [Fname])
+		_  -> io:format("Error happened with ~ts~n", [Fname])
 	end,
 	ProducerPid ! {get, self()},
 	{noreply, ProducerPid};
@@ -24,7 +24,7 @@ handle_info(stop, ProducerPid) ->
 	{stop, normal, ProducerPid}.
 
 run_process(Filename) ->
-	io:format("Обработка ~ts~n", [Filename]),
+	io:format("~ts~n", [Filename]),
 	BaseName = filename:basename(Filename),
 	os:cmd(io_lib:format("/usr/bin/magick ~ts -scale 1600x -strip _web/~ts", [Filename, BaseName])),
 	ok.

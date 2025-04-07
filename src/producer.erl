@@ -6,7 +6,6 @@ start_link(Filelist) ->
 	gen_server:start_link({global, ?MODULE}, ?MODULE, Filelist, []).
 
 init(Filelist) ->
-	io:format("producer: Получен список из ~b файлов.~n", [length(Filelist)]),
 	{ok, {Filelist, []}}.
 
 handle_info({consumerlist, ConsumerPids}, {Filelist, _}) ->
