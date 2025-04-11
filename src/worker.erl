@@ -26,7 +26,7 @@ handle_info(stop, ProducerPid) ->
 run_process(Filename) ->
 	io:format("~ts~n", [Filename]),
 	BaseName = filename:basename(Filename),
-	os:cmd(io_lib:format("/usr/bin/magick ~ts -scale 1600x -strip _web/~ts", [Filename, BaseName])),
+	os:cmd(io_lib:format("/usr/bin/magick '~ts' -scale 1600x -strip '_web/~ts'", [Filename, BaseName])),
 	ok.
 
 handle_call(_, _, State) -> {reply, no, State}.
